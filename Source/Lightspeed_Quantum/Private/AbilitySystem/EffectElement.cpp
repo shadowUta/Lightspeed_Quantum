@@ -13,6 +13,10 @@ UWorld* UEffectElement::GetWorld() const
     return Owner ? Owner->GetWorld() : nullptr;
 }
 
+bool UEffectElement::NeedsLoadForEditorGame() const
+{
+    return true ; // 确保在编辑器中也能加载和使用这个类
+}
 
 FGameplayTag UEffectElement::GetEffectGameplayTag()
 {

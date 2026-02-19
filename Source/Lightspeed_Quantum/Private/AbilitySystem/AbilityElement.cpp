@@ -26,7 +26,10 @@ UWorld* UAbilityElement::GetWorld() const
     return Owner ? Owner->GetWorld() : nullptr;
 }
 
-
+bool UAbilityElement::NeedsLoadForEditorGame() const
+{
+    return true; // 确保在编辑器中也能加载和使用这个类
+}
 
 void UAbilityElement::Tick(float DeltaTime)
 {

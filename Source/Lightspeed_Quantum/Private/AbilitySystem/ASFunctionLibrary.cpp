@@ -93,4 +93,5 @@ void UASFunctionLibrary::UpdateMaps()
 {
     InitAbilityElementMap();
     InitEffectElementMap();
+    UE_LOG(LogTemp, Warning, TEXT("Maps updated successfully."));
 }

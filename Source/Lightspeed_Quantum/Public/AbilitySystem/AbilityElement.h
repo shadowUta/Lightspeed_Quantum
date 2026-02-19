@@ -49,6 +49,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual TStatId GetStatId() const override;
 	virtual UWorld* GetWorld() const override;
+	virtual bool NeedsLoadForEditorGame() const override;
 	bool ShouldDestroy = false;
 	
 	UPROPERTY(VisibleAnywhere , BlueprintReadOnly, Category = "Ability System",Meta = (ExposeOnSpawn=true))
