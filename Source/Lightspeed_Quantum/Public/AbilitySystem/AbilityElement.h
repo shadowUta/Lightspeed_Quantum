@@ -1,16 +1,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "UObject/NoExportTypes.h"
 #include "NativeGameplayTags.h"
 #include "LQ_Character.h"
+#include "UObject/UObjectBaseUtility.h" 
 #include "AbilityElement.generated.h"
 
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType,Category = "Ability System")
+UCLASS(Abstract, Blueprintable, BlueprintType,Category = "Ability System")
 
 class LIGHTSPEED_QUANTUM_API UAbilityElement : public UObject , public FTickableGameObject
 {

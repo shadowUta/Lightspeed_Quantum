@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType, Category = "Dialogue System")
+UCLASS(Abstract,Blueprintable, BlueprintType, Category = "Dialogue System")
 class LIGHTSPEED_QUANTUM_API UDialogCondCheckNode : public UObject
 {
 	GENERATED_BODY()
@@ -20,14 +20,13 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Dialogue System", meta = (DisplayName = "开始运行"))
     void OnBeginplay();
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Dialogue System", meta = (DisplayName = "执行条件检查"))
+	bool ExecuteCondCheck();
+
 	UPROPERTY(VisibleAnywhere , BlueprintReadOnly, Category = "Dialouge System",Meta = (ExposeOnSpawn=true))
 	AActor* Owner;
 
+private:
     virtual UWorld* GetWorld() const override;
-
-
-
-
-
-
+	UWorld* World;
 };

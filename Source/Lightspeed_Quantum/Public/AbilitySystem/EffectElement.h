@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(Blueprintable, BlueprintType,Category = "Ability System")
+UCLASS(Abstract , Blueprintable, BlueprintType,Category = "Ability System")
 
 class LIGHTSPEED_QUANTUM_API UEffectElement : public UObject , public FTickableGameObject
 {

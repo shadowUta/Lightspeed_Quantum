@@ -2,6 +2,7 @@
 
 
 #include "AbilitySystem/ASFunctionLibrary.h"
+//
 
 TMap<FGameplayTag, TSubclassOf<UAbilityElement>> UASFunctionLibrary::AbilityElementClassMap;
 TMap<FGameplayTag, TSubclassOf<UEffectElement>> UASFunctionLibrary::EffectElementClassMap;
@@ -14,12 +15,17 @@ UASFunctionLibrary::UASFunctionLibrary()
 
 void UASFunctionLibrary::InitAbilityElementMap()
 {
+    //清空Map
+    AbilityElementClassMap.Empty();
+
     TArray<UClass*> DerivedClasses;
     GetDerivedClasses(UAbilityElement::StaticClass(), DerivedClasses , true);
     // 遍历Map，把键和值分别存入蓝图支持的数组
     for (const auto& ChildClass : DerivedClasses)
     {
-        if(ChildClass->ClassDefaultObject && (ChildClass->ClassFlags & CLASS_Abstract) == 0)
+        bool bIsAbstract = (ChildClass->GetClassFlags() & CLASS_Abstract) != 0;
+
+        if(ChildClass->ClassDefaultObject && !bIsAbstract)
         {
             auto* CDO = ChildClass->GetDefaultObject<UAbilityElement>();
             if(CDO && CDO->AbilityGameplayTag.IsValid())
@@ -36,12 +42,17 @@ void UASFunctionLibrary::InitAbilityElementMap()
 
 void UASFunctionLibrary::InitEffectElementMap()
 {
+    //清空Map
+    EffectElementClassMap.Empty();
+
     TArray<UClass*> DerivedClasses;
     GetDerivedClasses(UEffectElement::StaticClass(), DerivedClasses , true);
     // 遍历Map，把键和值分别存入蓝图支持的数组
     for (const auto& ChildClass : DerivedClasses)
     {
-        if(ChildClass->ClassDefaultObject && (ChildClass->ClassFlags & CLASS_Abstract) == 0)
+        bool bIsAbstract = (ChildClass->GetClassFlags() & CLASS_Abstract) != 0;
+
+        if(ChildClass->ClassDefaultObject && !bIsAbstract)
         {
             auto* CDO = ChildClass->GetDefaultObject<UEffectElement>();
             if(CDO && CDO->EffectGameplayTag.IsValid())
@@ -66,4 +77,20 @@ bool UASFunctionLibrary::SearchEffectClassByTag(FGameplayTag Tag , TSubclassOf<U
 {
     EffectClass = EffectElementClassMap.FindRef(Tag);
     return EffectElementClassMap.Contains(Tag);
+}
+
+int32 UASFunctionLibrary::GetAbilityClassMapLength()
+{
+    return AbilityElementClassMap.Num();
+}
+int32 UASFunctionLibrary::GetEffectClassMapLength()
+{
+    return EffectElementClassMap.Num();
+}
+
+
+void UASFunctionLibrary::UpdateMaps()
+{
+    InitAbilityElementMap();
+    InitEffectElementMap();
 }

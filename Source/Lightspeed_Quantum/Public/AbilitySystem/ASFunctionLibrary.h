@@ -31,4 +31,14 @@ public:
 	UFUNCTION(BlueprintPure , Category = "Ability System|Functions" , meta = (DisplayName = "查询效果类"))
 	static bool SearchEffectClassByTag(FGameplayTag Tag , TSubclassOf<UEffectElement>& EffectClass);
 
+	//调试用
+	UFUNCTION(BlueprintPure , Category = "Ability System|Functions" , meta = (DisplayName = "查询技能映射长度"))
+	static int32 GetAbilityClassMapLength();
+
+	//调试用
+	UFUNCTION(BlueprintPure , Category = "Ability System|Functions" , meta = (DisplayName = "查询效果映射长度"))
+	static int32 GetEffectClassMapLength();
+
+	UFUNCTION(BlueprintCallable , Category = "Ability System|Functions" , meta = (DisplayName = "更新映射"))
+	static void UpdateMaps();
 };
