@@ -55,4 +55,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability System" , meta = (displayName = "效果层数"))
 	int32 EffectStacks;
+
+	//可直接传入材质或纹理
+	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "效果图标"))
+	TObjectPtr<UObject> Image;
 };

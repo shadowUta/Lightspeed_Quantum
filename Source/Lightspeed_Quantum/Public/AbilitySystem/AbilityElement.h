@@ -63,6 +63,8 @@ public:
 	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System" , meta = (displayname = "冷却时间"))
 	float CooldownTime;
 
-
+	//可直接传入材质或纹理
+	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "技能图标"))
+	TObjectPtr<UObject> Image;
 
 };

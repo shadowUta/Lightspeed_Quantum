@@ -2,22 +2,42 @@
 
 
 #include "AbilitySystem/ASFunctionLibrary.h"
-//
+
+#include "Engine/ObjectLibrary.h"        // UObjectLibrary 所需
+#include "AssetRegistry/AssetData.h"     // FAssetData 所需
+
 
 TMap<FGameplayTag, TSubclassOf<UAbilityElement>> UASFunctionLibrary::AbilityElementClassMap;
 TMap<FGameplayTag, TSubclassOf<UEffectElement>> UASFunctionLibrary::EffectElementClassMap;
 
 UASFunctionLibrary::UASFunctionLibrary()
 {  
+
     InitAbilityElementMap();
     InitEffectElementMap();
 }
 
 void UASFunctionLibrary::InitAbilityElementMap()
 {
-    //清空Map
-    AbilityElementClassMap.Empty();
+    // 创建 ObjectLibrary 并加载指定路径下的所有蓝图
+    UObjectLibrary* AbilityObjectLibrary = UObjectLibrary::CreateLibrary(UAbilityElement::StaticClass(), true, true);
+    AbilityObjectLibrary->LoadBlueprintAssetDataFromPath(TEXT("/Game/AbilitySystem")); // 替换为实际路径
+    
+    TArray<FAssetData> AssetDatas;
+    AbilityObjectLibrary->GetAssetDataList(AssetDatas);
+    
+    FString Outprint  = FString::Printf(TEXT("AbilityElementLoad: %d"), AssetDatas.Num());
+    PrintOut(Outprint, FColor::Green);
 
+    for (const FAssetData& AssetData : AssetDatas)
+    {
+        // 加载蓝图类
+        UClass* LoadedClass = LoadClass<UAbilityElement>(nullptr, *AssetData.GetObjectPathString());
+        PrintOut(FString::Printf(TEXT("AbilityElementClassMap: %s"), *AssetData.GetObjectPathString()), FColor::Green);
+    }
+
+
+    AbilityElementClassMap.Empty();
     TArray<UClass*> DerivedClasses;
     GetDerivedClasses(UAbilityElement::StaticClass(), DerivedClasses , true);
     // 遍历Map，把键和值分别存入蓝图支持的数组
@@ -42,6 +62,23 @@ void UASFunctionLibrary::InitAbilityElementMap()
 
 void UASFunctionLibrary::InitEffectElementMap()
 {
+        // 创建 ObjectLibrary 并加载指定路径下的所有蓝图
+    UObjectLibrary* EffectObjectLibrary = UObjectLibrary::CreateLibrary(UEffectElement::StaticClass(), true, true);
+    EffectObjectLibrary->LoadBlueprintAssetDataFromPath(TEXT("/Game/AbilitySystem")); 
+    
+    TArray<FAssetData> AssetDatas;
+    EffectObjectLibrary->GetAssetDataList(AssetDatas);
+    
+    FString Outprint  = FString::Printf(TEXT("EffectElementLoad: %d"), AssetDatas.Num());
+    PrintOut(Outprint, FColor::Green);
+    
+    for (const FAssetData& AssetData : AssetDatas)
+    {
+        // 加载蓝图类
+        UClass* LoadedClass = LoadClass<UEffectElement>(nullptr, *AssetData.GetObjectPathString());
+        PrintOut(FString::Printf(TEXT("EffectElementClassMap: %s"), *AssetData.GetObjectPathString()), FColor::Green);
+    }
+
     //清空Map
     EffectElementClassMap.Empty();
 
@@ -94,4 +131,11 @@ void UASFunctionLibrary::UpdateMaps()
     InitAbilityElementMap();
     InitEffectElementMap();
     UE_LOG(LogTemp, Warning, TEXT("Maps updated successfully."));
+}
+void UASFunctionLibrary::PrintOut(FString Outprint , FColor Color )
+{
+    if(GEngine)
+    {
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, Color , Outprint);
+    }
 }

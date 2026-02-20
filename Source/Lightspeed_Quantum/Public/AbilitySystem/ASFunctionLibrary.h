@@ -4,10 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+
 #include "NativeGameplayTags.h"
+#include "UObject/Class.h"  
+
 #include "AbilityElement.h"
 #include "EffectElement.h"
-#include "UObject/Class.h"
+
 #include "ASFunctionLibrary.generated.h"
 
 UCLASS()
@@ -41,4 +44,6 @@ public:
 
 	UFUNCTION(BlueprintCallable , Category = "Ability System|Functions" , meta = (DisplayName = "更新映射"))
 	static void UpdateMaps();
+
+	static void PrintOut(FString Outprint , FColor Color);
 };
