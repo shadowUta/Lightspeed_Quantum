@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\private\\inventorycomponent.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\epic\\project\\lightspeed_quantum\\intermediate\\build\\win64\\x64\\lightspeed_quantumeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.inclorderunreal5_3.h.pch",
+        "Includes": [
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\inventory\\definitions.inventory.h",
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\public\\inventorycomponent.h",
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\public\\inventorytypes.h",
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\inventorytypes.generated.h",
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\inventorycomponent.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

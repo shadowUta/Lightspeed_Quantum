@@ -1,0 +1,13 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-Inventory.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Epic\Project\Lightspeed_Quantum\Intermediate\Build\Win64\x64\Lightspeed_QuantumEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+"D:\Epic\Project\Lightspeed_Quantum\Plugins\Inventory\Intermediate\Build\Win64\x64\UnrealEditor\Development\Inventory\Inventory.cpp.obj"
+"D:\Epic\Project\Lightspeed_Quantum\Plugins\Inventory\Intermediate\Build\Win64\x64\UnrealEditor\Development\Inventory\PerModuleInline.gen.cpp.obj"
+"D:\Epic\Project\Lightspeed_Quantum\Plugins\Inventory\Intermediate\Build\Win64\x64\UnrealEditor\Development\Inventory\Default.rc2.res"
+/OUT:"D:\Epic\Project\Lightspeed_Quantum\Plugins\Inventory\Intermediate\Build\Win64\x64\UnrealEditor\Development\Inventory\UnrealEditor-Inventory.lib"

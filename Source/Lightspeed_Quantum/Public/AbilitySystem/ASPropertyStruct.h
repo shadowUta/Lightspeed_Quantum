@@ -15,10 +15,10 @@ struct FPropertyValueWithMax
 	public:
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "最大值")
-	float Max;
+	float Max = 0.0f;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property"  , displayName = "当前值")
-	float Current;
+	float Current = 0.0f;
 };
 
 USTRUCT(BlueprintType)
@@ -29,10 +29,10 @@ struct FPropertyValueWithBase
 	public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "基础值")
-	float Base;
+	float Base = 0.0f;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "当前值")
-	float Current;
+	float Current = 0.0f;
 
 };
 
