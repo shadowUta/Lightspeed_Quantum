@@ -15,20 +15,16 @@ struct FItemData;
 #endif
 #define INVENTORY_InventoryComponent_generated_h
 
-#define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_11_DELEGATE \
+#define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_12_DELEGATE \
 INVENTORY_API void FOnInventoryUpdated_DelegateWrapper(const FMulticastScriptDelegate& OnInventoryUpdated);
 
 
-#define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_14_DELEGATE \
-INVENTORY_API void FOnConsumableUsed_DelegateWrapper(const FMulticastScriptDelegate& OnConsumableUsed, FName ItemID);
-
-
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_15_DELEGATE \
-INVENTORY_API void FOnEquipmentEquipped_DelegateWrapper(const FMulticastScriptDelegate& OnEquipmentEquipped, FName ItemID);
+INVENTORY_API void FOnConsumableUsed_DelegateWrapper(const FMulticastScriptDelegate& OnConsumableUsed, FName ItemID, int32 Quantity);
 
 
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_18_DELEGATE \
-INVENTORY_API void FOnItemDropped_DelegateWrapper(const FMulticastScriptDelegate& OnItemDropped, FName ItemID, int32 Amount);
+INVENTORY_API void FOnItemDropped_DelegateWrapper(const FMulticastScriptDelegate& OnItemDropped, FName ItemID, int32 Quantity);
 
 
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
@@ -36,9 +32,11 @@ INVENTORY_API void FOnItemDropped_DelegateWrapper(const FMulticastScriptDelegate
 	DECLARE_FUNCTION(execSwapItem); \
 	DECLARE_FUNCTION(execGetItemData); \
 	DECLARE_FUNCTION(execUseItem); \
+	DECLARE_FUNCTION(execRemoveItem); \
 	DECLARE_FUNCTION(execAddItem);
 
 
+#define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_CALLBACK_WRAPPERS
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUInventoryComponent(); \
@@ -65,6 +63,7 @@ public: \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_CALLBACK_WRAPPERS \
 	FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_INCLASS_NO_PURE_DECLS \
 	FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_ENHANCED_CONSTRUCTORS \
 private: \

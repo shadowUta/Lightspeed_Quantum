@@ -47,25 +47,28 @@ public:
 	UFUNCTION(BlueprintCallable , Category = "Ability System|LifeCycle" , meta = (DisplayName = "销毁技能"))
 	void DestroyAbilityElement();
 
-	virtual void Tick(float DeltaTime) override;
-	virtual TStatId GetStatId() const override;
-	virtual UWorld* GetWorld() const override;
 	bool ShouldDestroy = false;
 	
 	UPROPERTY(VisibleAnywhere , BlueprintReadOnly, Category = "Ability System",Meta = (ExposeOnSpawn=true))
 	ALQ_Character* Owner;
-
+	
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System", meta = (AllowPrivateAccess = true))
 	FGameplayTag AbilityGameplayTag;
-
+	
 	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System")
 	int32 AbilityLevel;
-
+	
 	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System" , meta = (displayname = "冷却时间"))
 	struct  FPropertyValueWithMax CooldownTime;
 	
 	//可直接传入材质或纹理
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "技能图标"))
 	TObjectPtr<UObject> Image;
+	
+private:
+	
+	virtual void Tick(float DeltaTime) override;
+	virtual TStatId GetStatId() const override;
+	virtual UWorld* GetWorld() const override;
 
 };

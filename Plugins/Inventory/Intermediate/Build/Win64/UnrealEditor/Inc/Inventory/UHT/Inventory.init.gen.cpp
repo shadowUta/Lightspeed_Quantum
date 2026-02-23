@@ -8,7 +8,6 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeInventory_init() {}
 	INVENTORY_API UFunction* Z_Construct_UDelegateFunction_Inventory_OnConsumableUsed__DelegateSignature();
-	INVENTORY_API UFunction* Z_Construct_UDelegateFunction_Inventory_OnEquipmentEquipped__DelegateSignature();
 	INVENTORY_API UFunction* Z_Construct_UDelegateFunction_Inventory_OnInventoryUpdated__DelegateSignature();
 	INVENTORY_API UFunction* Z_Construct_UDelegateFunction_Inventory_OnItemDropped__DelegateSignature();
 	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_Inventory;
@@ -18,7 +17,6 @@ void EmptyLinkFunctionForGeneratedCodeInventory_init() {}
 		{
 			static UObject* (*const SingletonFuncArray[])() = {
 				(UObject* (*)())Z_Construct_UDelegateFunction_Inventory_OnConsumableUsed__DelegateSignature,
-				(UObject* (*)())Z_Construct_UDelegateFunction_Inventory_OnEquipmentEquipped__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Inventory_OnInventoryUpdated__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_Inventory_OnItemDropped__DelegateSignature,
 			};
@@ -27,13 +25,13 @@ void EmptyLinkFunctionForGeneratedCodeInventory_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x1EDCA386,
-				0xBE67CD46,
+				0x9AB8661E,
+				0x9919D4C2,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Inventory.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_Inventory.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Inventory(Z_Construct_UPackage__Script_Inventory, TEXT("/Script/Inventory"), Z_Registration_Info_UPackage__Script_Inventory, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x1EDCA386, 0xBE67CD46));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Inventory(Z_Construct_UPackage__Script_Inventory, TEXT("/Script/Inventory"), Z_Registration_Info_UPackage__Script_Inventory, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x9AB8661E, 0x9919D4C2));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -12,14 +12,14 @@ void UInventoryComponent::BeginPlay()
     Inventory.SetNum(InventorySize);
 }
 
-int32 UInventoryComponent::AddItem(FName ItemID, int32 Amount)
+int32 UInventoryComponent::AddItem(FName ItemID, int32 Quantity)
 {
-    if (Amount <= 0 || ItemID == NAME_None) return Amount;
+    if (Quantity <= 0 || ItemID == NAME_None) return Quantity;
     
     FItemData ItemData;
-    if (!GetItemData(ItemID, ItemData)) return Amount; 
+    if (!GetItemData(ItemID, ItemData)) return Quantity; 
 
-    int32 RemainingAmount = Amount;
+    int32 RemainingAmount = Quantity;
     
     for (FInventorySlot& Slot : Inventory)
     {
@@ -63,12 +63,12 @@ int32 UInventoryComponent::AddItem(FName ItemID, int32 Amount)
         }
     }
     
-    OnInventoryUpdated.Broadcast();
+    UpdateInventory();
     
     return RemainingAmount;
 }
 
-void UInventoryComponent::UseItem(int32 SlotIndex)
+void UInventoryComponent::UseItem(int32 SlotIndex , int32 Quantity)
 {
     if (!Inventory.IsValidIndex(SlotIndex)) return;
     
@@ -78,30 +78,24 @@ void UInventoryComponent::UseItem(int32 SlotIndex)
     FItemData ItemData;
     if (GetItemData(Slot.ItemID, ItemData))
     {
-        switch (ItemData.ItemType)
+        if (ItemData.ItemTypes.Contains(EItemType::Consumable))
         {
-            case EItemType::Consumable:
-                HandleConsumable(SlotIndex, ItemData);
-                break;
-                
-            case EItemType::Equipment:
-                HandleEquipment(SlotIndex, ItemData);
-                break;
-                
-            case EItemType::Material:
-                HandleMaterial(SlotIndex, ItemData);
-                break;
-                
-            case EItemType::QuestItem:
-                UE_LOG(LogTemp, Warning, TEXT("任务物品无法直接点击使用！"));
-                break;
-                
-            default:
-                break;
+            HandleConsumable(SlotIndex, Quantity , Slot.ItemID);
         }
     }
 }
 
+void UInventoryComponent::RemoveItem(int32 SlotIndex)
+{
+    if (!Inventory.IsValidIndex(SlotIndex)) return;
+    
+    FInventorySlot& Slot = Inventory[SlotIndex];
+    if (Slot.IsEmpty()) return;
+    
+    Slot.ClearSlot();
+    
+    UpdateInventory();
+}
 
 bool UInventoryComponent::GetItemData(FName ItemID, FItemData& OutItemData) const
 {
@@ -118,28 +112,21 @@ bool UInventoryComponent::GetItemData(FName ItemID, FItemData& OutItemData) cons
     return false;
 }
 
-
-
-void UInventoryComponent::HandleConsumable(int32 SlotIndex, const FItemData& ItemData)
+void UInventoryComponent::HandleConsumable(int32 SlotIndex, int32 Quantity, FName ItemID)
 {
     FInventorySlot& Slot = Inventory[SlotIndex];
-    Slot.Quantity--;
+    int32 TempQuantity = Slot.Quantity;
+    Slot.Quantity -= Quantity;
     if (Slot.Quantity <= 0)
     {
         Slot.ClearSlot();
+        OnConsumableUsed.Broadcast(ItemID , TempQuantity);
     }
-    OnInventoryUpdated.Broadcast();
-    OnConsumableUsed.Broadcast(ItemData.ItemID);
-}
-
-void UInventoryComponent::HandleEquipment(int32 SlotIndex, const FItemData& ItemData)
-{
-    OnEquipmentEquipped.Broadcast(ItemData.ItemID);
-}
-
-void UInventoryComponent::HandleMaterial(int32 SlotIndex, const FItemData& ItemData)
-{
-    UE_LOG(LogTemp, Log, TEXT("材料通常用于合成，无法直接右键使用: %s"), *ItemData.ItemName.ToString());
+    else
+    {
+        OnConsumableUsed.Broadcast(ItemID , Quantity);
+    }
+    UpdateInventory();
 }
 
 void UInventoryComponent::SwapItem(int32 IndexA, int32 IndexB)
@@ -149,18 +136,31 @@ void UInventoryComponent::SwapItem(int32 IndexA, int32 IndexB)
     
     Inventory.Swap(IndexA, IndexB);
     
-    OnInventoryUpdated.Broadcast();
+    UpdateInventory();
 }
 
-void UInventoryComponent::DropItem(int32 SlotIndex)
+void UInventoryComponent::DropItem(int32 SlotIndex , int32 Quantity)
 {
-    if (!Inventory.IsValidIndex(SlotIndex)) return;
+    if (!Inventory.IsValidIndex(SlotIndex) || Quantity <= 0) return;
     FInventorySlot& Slot = Inventory[SlotIndex]; 
     if (Slot.IsEmpty()) return;
+
+    int32 TempQuantity = Slot.Quantity;
+    Slot.Quantity = FMath::Min(Slot.Quantity - Quantity, 0 );
+
+    TempQuantity -= Slot.Quantity;
     
-    OnItemDropped.Broadcast(Slot.ItemID, Slot.Quantity);
-    
-    Slot.ClearSlot();
-    
+    OnItemDropped.Broadcast(Slot.ItemID, TempQuantity);
+
+    if (Slot.Quantity <= 0)
+    {
+        Slot.ClearSlot();
+    }
+    UpdateInventory();
+}
+
+void UInventoryComponent::UpdateInventory()
+{
+    OnInventoryUpdated_Implementation();
     OnInventoryUpdated.Broadcast();
 }

@@ -2,16 +2,20 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "ItemUseElement.h"
 #include "InventoryTypes.generated.h"
 
 // 物品类
 UENUM(BlueprintType)
 enum class EItemType : uint8
 {
+	None        UMETA(DisplayName = "无"),
 	Consumable  UMETA(DisplayName = "消耗品"),
 	Equipment   UMETA(DisplayName = "装备"),
 	Material    UMETA(DisplayName = "材料"),
-	QuestItem   UMETA(DisplayName = "任务物品")
+	QuestItem   UMETA(DisplayName = "任务物品"),
+	Currency    UMETA(DisplayName = "货币"),
+	Other       UMETA(DisplayName = "其他")
 };
 
 // 物品基础数据 
@@ -20,23 +24,30 @@ struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品ID"))
 	FName ItemID;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品名称"))
 	FText ItemName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
-	UTexture2D* Icon;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Item Data", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "物品图标"))
+	TObjectPtr<UObject> Image;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "最大堆叠数"))
 	int32 MaxStack = 64;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
-	EItemType ItemType = EItemType::Material;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品类型"))
+	TSet<EItemType> ItemTypes;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
-	TSubclassOf<AActor> DropItemClass; 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品使用类"))
+	TArray<TSubclassOf<UItemUseElement>> DropItemClass;
+
+	bool operator==(const FItemData& Other) const
+	{
+		return (ItemID == Other.ItemID) && ItemName.EqualTo(Other.ItemName) && MaxStack == Other.MaxStack;
+	}
+
+
 };
 
 // 背包格子数据

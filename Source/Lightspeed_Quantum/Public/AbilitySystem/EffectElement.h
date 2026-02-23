@@ -42,14 +42,11 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent , Category = "Ability System" , meta = (DisplayName = "修改效果层数"))
 	bool ModifyEffectStacks(int32 AddedStacks);
 
-	virtual void Tick(float DeltaTime) override;
-	virtual TStatId GetStatId() const override;
-	virtual UWorld* GetWorld() const override;
 	bool ShouldDestroy = false;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System",Meta = (ExposeOnSpawn=true))
 	ALQ_Character* Owner;
-
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Ability System", meta = (AllowPrivateAccess = true))
 	FGameplayTag EffectGameplayTag;
 
@@ -59,4 +56,11 @@ public:
 	//可直接传入材质或纹理
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "效果图标"))
 	TObjectPtr<UObject> Image;
+
+private:
+
+	virtual void Tick(float DeltaTime) override;
+	virtual TStatId GetStatId() const override;
+	virtual UWorld* GetWorld() const override;
+
 };
