@@ -9,6 +9,7 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FInventorySlot;
 struct FItemData;
 #ifdef INVENTORY_InventoryFunctionLibrary_generated_h
 #error "InventoryFunctionLibrary.generated.h already included, missing '#pragma once' in InventoryFunctionLibrary.h"
@@ -16,6 +17,7 @@ struct FItemData;
 #define INVENTORY_InventoryFunctionLibrary_generated_h
 
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryFunctionLibrary_h_11_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execIsEmpty); \
 	DECLARE_FUNCTION(execItemDataNotEquals); \
 	DECLARE_FUNCTION(execItemDataEquals);
 

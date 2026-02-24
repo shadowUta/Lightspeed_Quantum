@@ -48,7 +48,6 @@ protected:
 	UPROPERTY(BlueprintAssignable, Category = "Inventory|Events" , meta = (DisplayName = "物品丢弃事件"))
 	FOnItemDropped OnItemDropped;
 
-
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "添加物品到背包"))
 	int32 AddItem(FName ItemID, int32 Quantity);
 
@@ -67,10 +66,15 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "丢弃物品"))
 	void DropItem(int32 SlotIndex , int32 Quantity = 1);
 
+	//无法减少背包容量，增加背包容量时会在末尾添加空槽
+	//输入负数或0将不会增加背包容量，返回false
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "增加背包容量"))
+	bool IncreaseInventorySize(int32 IncreaseSize = 1);
+
 public:	
 
 	void UpdateInventory();
-	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory" , meta = (DisplayName = "刷新背包"))
+	UFUNCTION(BlueprintImplementableEvent , BlueprintCallable , Category = "Inventory" , meta = (DisplayName = "刷新背包"))
 	void OnInventoryUpdated_Implementation();
 
 protected:

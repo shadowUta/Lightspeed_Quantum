@@ -7,9 +7,8 @@ UInventoryComponent::UInventoryComponent()
 
 void UInventoryComponent::BeginPlay()
 {
-    Super::BeginPlay();
-    
     Inventory.SetNum(InventorySize);
+    Super::BeginPlay();
 }
 
 int32 UInventoryComponent::AddItem(FName ItemID, int32 Quantity)
@@ -18,7 +17,8 @@ int32 UInventoryComponent::AddItem(FName ItemID, int32 Quantity)
     
     FItemData ItemData;
     if (!GetItemData(ItemID, ItemData)) return Quantity; 
-
+    
+    
     int32 RemainingAmount = Quantity;
     
     for (FInventorySlot& Slot : Inventory)
@@ -40,6 +40,7 @@ int32 UInventoryComponent::AddItem(FName ItemID, int32 Quantity)
         }
     }
     
+
     if (RemainingAmount > 0)
     {
         for (FInventorySlot& Slot : Inventory)
@@ -47,7 +48,8 @@ int32 UInventoryComponent::AddItem(FName ItemID, int32 Quantity)
             if (Slot.IsEmpty())
             {
                 Slot.ItemID = ItemID; 
-
+                
+                
                 if (RemainingAmount <= ItemData.MaxStack)
                 {
                     Slot.Quantity = RemainingAmount;
@@ -157,6 +159,21 @@ void UInventoryComponent::DropItem(int32 SlotIndex , int32 Quantity)
         Slot.ClearSlot();
     }
     UpdateInventory();
+}
+
+bool UInventoryComponent::IncreaseInventorySize(int32 IncreaseSize)
+{
+    if (IncreaseSize <= 0) return false;
+    
+    int32 NewSize = InventorySize + IncreaseSize;
+    if (NewSize <= 0) return false;
+    
+    Inventory.SetNum(NewSize);
+    InventorySize = NewSize;
+    
+    UpdateInventory();
+    
+    return true;
 }
 
 void UInventoryComponent::UpdateInventory()

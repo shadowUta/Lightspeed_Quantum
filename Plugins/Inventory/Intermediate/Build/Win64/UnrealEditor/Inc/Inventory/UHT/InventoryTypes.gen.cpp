@@ -14,6 +14,7 @@ COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
 INVENTORY_API UClass* Z_Construct_UClass_UItemUseElement_NoRegister();
+INVENTORY_API UEnum* Z_Construct_UEnum_Inventory_EItemQuality();
 INVENTORY_API UEnum* Z_Construct_UEnum_Inventory_EItemType();
 INVENTORY_API UScriptStruct* Z_Construct_UScriptStruct_FInventorySlot();
 INVENTORY_API UScriptStruct* Z_Construct_UScriptStruct_FItemData();
@@ -95,6 +96,72 @@ UEnum* Z_Construct_UEnum_Inventory_EItemType()
 }
 // End Enum EItemType
 
+// Begin Enum EItemQuality
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_EItemQuality;
+static UEnum* EItemQuality_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_EItemQuality.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_EItemQuality.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Inventory_EItemQuality, (UObject*)Z_Construct_UPackage__Script_Inventory(), TEXT("EItemQuality"));
+	}
+	return Z_Registration_Info_UEnum_EItemQuality.OuterSingleton;
+}
+template<> INVENTORY_API UEnum* StaticEnum<EItemQuality>()
+{
+	return EItemQuality_StaticEnum();
+}
+struct Z_Construct_UEnum_Inventory_EItemQuality_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "Common.DisplayName", "\xe6\x99\xae\xe9\x80\x9a" },
+		{ "Common.Name", "EItemQuality::Common" },
+		{ "Epic.DisplayName", "\xe5\x8f\xb2\xe8\xaf\x97" },
+		{ "Epic.Name", "EItemQuality::Epic" },
+		{ "Legendary.DisplayName", "\xe4\xbc\xa0\xe8\xaf\xb4" },
+		{ "Legendary.Name", "EItemQuality::Legendary" },
+		{ "ModuleRelativePath", "Public/InventoryTypes.h" },
+		{ "Mythical.DisplayName", "\xe7\xbb\x9d\xe4\xb8\x96" },
+		{ "Mythical.Name", "EItemQuality::Mythical" },
+		{ "None.DisplayName", "\xe6\x97\xa0" },
+		{ "None.Name", "EItemQuality::None" },
+		{ "Rare.DisplayName", "\xe7\xa8\x80\xe6\x9c\x89" },
+		{ "Rare.Name", "EItemQuality::Rare" },
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EItemQuality::None", (int64)EItemQuality::None },
+		{ "EItemQuality::Common", (int64)EItemQuality::Common },
+		{ "EItemQuality::Rare", (int64)EItemQuality::Rare },
+		{ "EItemQuality::Epic", (int64)EItemQuality::Epic },
+		{ "EItemQuality::Legendary", (int64)EItemQuality::Legendary },
+		{ "EItemQuality::Mythical", (int64)EItemQuality::Mythical },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Inventory_EItemQuality_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_Inventory,
+	nullptr,
+	"EItemQuality",
+	"EItemQuality",
+	Z_Construct_UEnum_Inventory_EItemQuality_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_Inventory_EItemQuality_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_Inventory_EItemQuality_Statics::Enum_MetaDataParams), Z_Construct_UEnum_Inventory_EItemQuality_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_Inventory_EItemQuality()
+{
+	if (!Z_Registration_Info_UEnum_EItemQuality.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EItemQuality.InnerSingleton, Z_Construct_UEnum_Inventory_EItemQuality_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_EItemQuality.InnerSingleton;
+}
+// End Enum EItemQuality
+
 // Begin ScriptStruct FItemData
 static_assert(std::is_polymorphic<FItemData>() == std::is_polymorphic<FTableRowBase>(), "USTRUCT FItemData cannot be polymorphic unless super FTableRowBase is polymorphic");
 static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_ItemData;
@@ -133,6 +200,16 @@ struct Z_Construct_UScriptStruct_FItemData_Statics
 		{ "DisplayName", "\xe7\x89\xa9\xe5\x93\x81\xe5\x90\x8d\xe7\xa7\xb0" },
 		{ "ModuleRelativePath", "Public/InventoryTypes.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ItemDescription_MetaData[] = {
+		{ "Category", "Item Data" },
+		{ "DisplayName", "\xe7\x89\xa9\xe5\x93\x81\xe6\x8f\x8f\xe8\xbf\xb0" },
+		{ "ModuleRelativePath", "Public/InventoryTypes.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ItemQuality_MetaData[] = {
+		{ "Category", "Item Data" },
+		{ "DisplayName", "\xe7\x89\xa9\xe5\x93\x81\xe5\x93\x81\xe8\xb4\xa8" },
+		{ "ModuleRelativePath", "Public/InventoryTypes.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Image_MetaData[] = {
 		{ "AllowedClasses", "Texture2D,MaterialInterface" },
 		{ "Category", "Item Data" },
@@ -157,6 +234,9 @@ struct Z_Construct_UScriptStruct_FItemData_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FNamePropertyParams NewProp_ItemID;
 	static const UECodeGen_Private::FTextPropertyParams NewProp_ItemName;
+	static const UECodeGen_Private::FTextPropertyParams NewProp_ItemDescription;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_ItemQuality_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_ItemQuality;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Image;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxStack;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_ItemTypes_ElementProp_Underlying;
@@ -173,6 +253,9 @@ struct Z_Construct_UScriptStruct_FItemData_Statics
 };
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemID = { "ItemID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, ItemID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ItemID_MetaData), NewProp_ItemID_MetaData) };
 const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemName = { "ItemName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, ItemName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ItemName_MetaData), NewProp_ItemName_MetaData) };
+const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemDescription = { "ItemDescription", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, ItemDescription), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ItemDescription_MetaData), NewProp_ItemDescription_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemQuality_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemQuality = { "ItemQuality", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, ItemQuality), Z_Construct_UEnum_Inventory_EItemQuality, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ItemQuality_MetaData), NewProp_ItemQuality_MetaData) }; // 700131124
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_Image = { "Image", nullptr, (EPropertyFlags)0x0114000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, Image), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Image_MetaData), NewProp_Image_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_MaxStack = { "MaxStack", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FItemData, MaxStack), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxStack_MetaData), NewProp_MaxStack_MetaData) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemTypes_ElementProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
@@ -183,6 +266,9 @@ const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FItemDat
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FItemData_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemName,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemDescription,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemQuality_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemQuality,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_Image,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_MaxStack,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FItemData_Statics::NewProp_ItemTypes_ElementProp_Underlying,
@@ -295,13 +381,14 @@ struct Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_So
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EItemType_StaticEnum, TEXT("EItemType"), &Z_Registration_Info_UEnum_EItemType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4117045954U) },
+		{ EItemQuality_StaticEnum, TEXT("EItemQuality"), &Z_Registration_Info_UEnum_EItemQuality, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 700131124U) },
 	};
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FItemData::StaticStruct, Z_Construct_UScriptStruct_FItemData_Statics::NewStructOps, TEXT("ItemData"), &Z_Registration_Info_UScriptStruct_ItemData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FItemData), 1541627432U) },
+		{ FItemData::StaticStruct, Z_Construct_UScriptStruct_FItemData_Statics::NewStructOps, TEXT("ItemData"), &Z_Registration_Info_UScriptStruct_ItemData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FItemData), 2364454653U) },
 		{ FInventorySlot::StaticStruct, Z_Construct_UScriptStruct_FInventorySlot_Statics::NewStructOps, TEXT("InventorySlot"), &Z_Registration_Info_UScriptStruct_InventorySlot, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FInventorySlot), 2173197574U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_2240706971(TEXT("/Script/Inventory"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_2123912042(TEXT("/Script/Inventory"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryTypes_h_Statics::EnumInfo));

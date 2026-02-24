@@ -18,6 +18,17 @@ enum class EItemType : uint8
 	Other       UMETA(DisplayName = "其他")
 };
 
+UENUM(BlueprintType)
+enum class EItemQuality : uint8
+{
+	None      UMETA(DisplayName = "无"),
+	Common    UMETA(DisplayName = "普通"),
+	Rare      UMETA(DisplayName = "稀有"),
+	Epic      UMETA(DisplayName = "史诗"),
+	Legendary UMETA(DisplayName = "传说"),
+	Mythical  UMETA(DisplayName = "绝世")
+};
+
 // 物品基础数据 
 USTRUCT(BlueprintType)
 struct FItemData : public FTableRowBase
@@ -29,6 +40,12 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品名称"))
 	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品描述"))
+	FText ItemDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data" , meta = (DisplayName = "物品品质"))
+	EItemQuality ItemQuality;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Item Data", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "物品图标"))
 	TObjectPtr<UObject> Image;
@@ -44,7 +61,7 @@ struct FItemData : public FTableRowBase
 
 	bool operator==(const FItemData& Other) const
 	{
-		return (ItemID == Other.ItemID) && ItemName.EqualTo(Other.ItemName) && MaxStack == Other.MaxStack;
+		return (ItemID == Other.ItemID) && ItemName.EqualTo(Other.ItemName) && MaxStack == Other.MaxStack && ItemDescription.EqualTo(Other.ItemDescription) ;
 	}
 
 

@@ -28,6 +28,7 @@ INVENTORY_API void FOnItemDropped_DelegateWrapper(const FMulticastScriptDelegate
 
 
 #define FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execIncreaseInventorySize); \
 	DECLARE_FUNCTION(execDropItem); \
 	DECLARE_FUNCTION(execSwapItem); \
 	DECLARE_FUNCTION(execGetItemData); \

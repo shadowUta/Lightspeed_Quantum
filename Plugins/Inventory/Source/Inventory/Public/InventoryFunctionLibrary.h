@@ -22,4 +22,10 @@ public:
 	{
 		return !(A == B);
     }
+
+	UFUNCTION(BlueprintPure, Category = "Item Data" , meta = (DisplayName = "Slot为空" , CompactNodeTitle = "IsEmpty"))
+	static bool IsEmpty(FInventorySlot const& Slot)
+	{
+		return Slot.IsEmpty();
+	}
 };

@@ -2,15 +2,15 @@
 	"RemapUnityFiles": 
 	{
 		"Module.Inventory.cpp.obj": [
+			"ItemUseElement.gen.cpp.obj",
 			"PerModuleInline.gen.cpp.obj",
 			"Inventory.cpp.obj",
+			"ItemUseElement.cpp.obj",
 			"Inventory.init.gen.cpp.obj",
 			"InventoryComponent.gen.cpp.obj",
 			"InventoryFunctionLibrary.gen.cpp.obj",
 			"InventoryTypes.gen.cpp.obj",
-			"ItemUseElement.gen.cpp.obj",
-			"InventoryComponent.cpp.obj",
-			"ItemUseElement.cpp.obj"
+			"InventoryComponent.cpp.obj"
 		]
 	}
 }
