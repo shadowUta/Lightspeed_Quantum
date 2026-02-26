@@ -122,10 +122,13 @@ void UInventoryComponent::HandleConsumable(int32 SlotIndex, int32 Quantity, FNam
     if (Slot.Quantity <= 0)
     {
         Slot.ClearSlot();
+        OnConsumableUsed_Implementation(ItemID , TempQuantity);
         OnConsumableUsed.Broadcast(ItemID , TempQuantity);
+        
     }
     else
     {
+        OnConsumableUsed_Implementation(ItemID , Quantity);
         OnConsumableUsed.Broadcast(ItemID , Quantity);
     }
     UpdateInventory();
@@ -141,17 +144,19 @@ void UInventoryComponent::SwapItem(int32 IndexA, int32 IndexB)
     UpdateInventory();
 }
 
-void UInventoryComponent::DropItem(int32 SlotIndex , int32 Quantity)
+int32 UInventoryComponent::DropItem(int32 SlotIndex , int32 Quantity)
 {
-    if (!Inventory.IsValidIndex(SlotIndex) || Quantity <= 0) return;
+    if (!Inventory.IsValidIndex(SlotIndex)) return 0;
     FInventorySlot& Slot = Inventory[SlotIndex]; 
-    if (Slot.IsEmpty()) return;
+    if (Slot.IsEmpty()) return 0;
+    if (Quantity <= 0) return Slot.Quantity;
 
     int32 TempQuantity = Slot.Quantity;
-    Slot.Quantity = FMath::Min(Slot.Quantity - Quantity, 0 );
+    Slot.Quantity = FMath::Max(Slot.Quantity - Quantity, 0 );
 
     TempQuantity -= Slot.Quantity;
     
+    OnItemDropped_Implementation(Slot.ItemID, TempQuantity);
     OnItemDropped.Broadcast(Slot.ItemID, TempQuantity);
 
     if (Slot.Quantity <= 0)
@@ -159,6 +164,7 @@ void UInventoryComponent::DropItem(int32 SlotIndex , int32 Quantity)
         Slot.ClearSlot();
     }
     UpdateInventory();
+    return Slot.Quantity;
 }
 
 bool UInventoryComponent::IncreaseInventorySize(int32 IncreaseSize)

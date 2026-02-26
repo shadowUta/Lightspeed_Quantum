@@ -51,31 +51,41 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "添加物品到背包"))
 	int32 AddItem(FName ItemID, int32 Quantity);
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "移除物品"))
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "移除背包物品"))
 	void RemoveItem(int32 SlotIndex);
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "使用物品"))
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "使用背包物品"))
 	void UseItem(int32 SlotIndex , int32 Quantity = 1);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "获取物品数据"))
 	bool GetItemData(FName ItemID, FItemData& OutItemData) const;
 	
-	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "交换物品位置"))
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "交换背包物品位置"))
 	void SwapItem(int32 IndexA, int32 IndexB);
 	
-	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "丢弃物品"))
-	void DropItem(int32 SlotIndex , int32 Quantity = 1);
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "丢弃背包物品"))
+	int32 DropItem(int32 SlotIndex , int32 Quantity = 1);
 
 	//无法减少背包容量，增加背包容量时会在末尾添加空槽
 	//输入负数或0将不会增加背包容量，返回false
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "增加背包容量"))
 	bool IncreaseInventorySize(int32 IncreaseSize = 1);
 
+	
+	
+	
 public:	
-
+	
 	void UpdateInventory();
 	UFUNCTION(BlueprintImplementableEvent , BlueprintCallable , Category = "Inventory" , meta = (DisplayName = "刷新背包"))
 	void OnInventoryUpdated_Implementation();
+	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory" , meta = (DisplayName = "物品丢弃"))
+	void OnItemDropped_Implementation(FName ItemID , int32 Quantity);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory" , meta = (DisplayName = "消耗品使用"))
+	void OnConsumableUsed_Implementation(FName ItemID , int32 Quantity);
+
 
 protected:
 	void HandleConsumable(int32 SlotIndex, int32 Quantity, FName ItemID);
