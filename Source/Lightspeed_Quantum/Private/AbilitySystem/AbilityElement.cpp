@@ -3,6 +3,10 @@
 
 #include "AbilitySystem/AbilityElement.h"
 
+UAbilityElement::UAbilityElement(){
+    World = GetOuter()->GetWorld();
+    OnBeginPlay();
+}
 
 void UAbilityElement::ActivateAbility()
 {
@@ -15,23 +19,12 @@ FGameplayTag UAbilityElement::GetAbilityGameplayTag()
     return AbilityGameplayTag;
 }
 
-TStatId UAbilityElement::GetStatId() const
-{
-    // 必须重写：返回性能统计ID（UE性能分析工具会用到）
-    RETURN_QUICK_DECLARE_CYCLE_STAT(UAbilityElement, STATGROUP_Tickables);
-}
-
 UWorld* UAbilityElement::GetWorld() const
 {
-    return Owner ? Owner->GetWorld() : nullptr;
-}
-
-void UAbilityElement::Tick(float DeltaTime)
-{
-    if(!ShouldDestroy)
-    {
-        OnTick(DeltaTime); 
-    }
+    if(Owner) return Owner->GetWorld();
+    if(World) return World;
+        UE_LOG(LogTemp, Warning, TEXT("%s::GetWorld() - Owner and Outer have no valid world!") , *GetName());
+        return nullptr;
 }
 
 void UAbilityElement::DestroyAbilityElement()
@@ -40,7 +33,6 @@ void UAbilityElement::DestroyAbilityElement()
         return;
     };
     OnDeactivate();
-    ShouldDestroy = true;
     if (IsValid(Owner))
     {
         Owner = nullptr;
@@ -55,9 +47,6 @@ bool UAbilityElement::UpgradeAbility_Implementation(int32 AddedLevel)
     {
         AbilityLevel = 0;
         return false;
-    }
-    else
-    {
-        return true;
-    }
+    };
+    return true;
 }

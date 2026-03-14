@@ -19,9 +19,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "生命值" )
 	struct  FPropertyValueWithMax HP;
-	
-	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "魔力值" )
-	struct  FPropertyValueWithMax MP;
 
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "攻击力" )
 	struct  FPropertyValueWithBase AP;
@@ -52,13 +49,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改生命值" ))
 	void ModifyHP(float Value);
-
-	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改魔力值" ))
-	void ModifyMP(float Value);
-
+	
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改攻击力" ))
 	void ModifyAP(float Value);
-
 
 
 };

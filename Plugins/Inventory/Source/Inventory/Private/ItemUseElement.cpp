@@ -1,5 +1,10 @@
 #include "ItemUseElement.h"
 
+UItemUseElement::UItemUseElement()
+{
+    World = GetOuter()->GetWorld();
+}
+
 void UItemUseElement::UseItem(AActor* User, FName ItemID, int32 Count)
 {
     OnUse(User, ItemID, Count);
@@ -8,5 +13,8 @@ void UItemUseElement::UseItem(AActor* User, FName ItemID, int32 Count)
 
 UWorld* UItemUseElement::GetWorld() const
 {
-    return Owner ? Owner->GetWorld() : nullptr;
+    if(Owner) return Owner->GetWorld();
+    if(World) return World;
+        UE_LOG(LogTemp, Warning, TEXT("UItemUseElement::GetWorld() - Owner and Outer have no valid world!"));
+        return nullptr;
 }

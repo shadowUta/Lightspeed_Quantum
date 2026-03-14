@@ -3,26 +3,17 @@
 
 UDialogueEventElement::UDialogueEventElement()
 {
+    World = GetOuter()->GetWorld();
     OnBeginplay();
 
-    World = GetOuter()->GetWorld();
 
 }
 
 UWorld* UDialogueEventElement::GetWorld() const
 {
-    if(Owner)
-    {
-        return Owner->GetWorld();
-    }
-    else if(World)
-    {
-        return World;
-    }
-    else
-    {
+    if(Owner) return Owner->GetWorld();
+    if(World) return World;
         UE_LOG(LogTemp, Warning, TEXT("UDialogueEventElement::GetWorld() - Owner and Outer have no valid world!"));
         return nullptr;
-    }
     // return Owner ? Owner->GetWorld() : nullptr;
 }

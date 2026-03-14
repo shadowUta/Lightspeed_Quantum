@@ -11,11 +11,15 @@
  */
 UCLASS(Abstract , Blueprintable, BlueprintType,Category = "Ability System")
 
-class LIGHTSPEED_QUANTUM_API UEffectElement : public UObject , public FTickableGameObject
+class LIGHTSPEED_QUANTUM_API UEffectElement : public UObject
 {
 	GENERATED_BODY()
 
 public:
+	UEffectElement();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "开始时"))
+	void OnBeginPlay();
 	//定义效果的逻辑
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "效果激活时"))
 	void OnActivate();
@@ -32,17 +36,11 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Ability System" , meta = (DisplayName = "获取效果GameplayTag"))
     FGameplayTag GetEffectGameplayTag();
 
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System")
-	void OnTick(float DeltaTime);
-
 	UFUNCTION(BlueprintCallable, Category = "Ability System|LifeCycle" , meta = (DisplayName = "销毁效果"))
 	void DestroyEffectElement();
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent , Category = "Ability System" , meta = (DisplayName = "修改效果层数"))
 	bool ModifyEffectStacks(int32 AddedStacks);
-
-	bool ShouldDestroy = false;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System",Meta = (ExposeOnSpawn=true))
 	ALQ_Character* Owner;
@@ -59,8 +57,7 @@ public:
 
 private:
 
-	virtual void Tick(float DeltaTime) override;
-	virtual TStatId GetStatId() const override;
 	virtual UWorld* GetWorld() const override;
+	UWorld* World;
 
 };

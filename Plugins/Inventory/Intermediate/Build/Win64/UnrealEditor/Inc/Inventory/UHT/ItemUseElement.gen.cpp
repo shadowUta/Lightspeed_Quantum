@@ -204,7 +204,6 @@ template<> INVENTORY_API UClass* StaticClass<UItemUseElement>()
 {
 	return UItemUseElement::StaticClass();
 }
-UItemUseElement::UItemUseElement(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR(UItemUseElement);
 UItemUseElement::~UItemUseElement() {}
 // End Class UItemUseElement

@@ -20,12 +20,10 @@
             "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\inventorytypes.generated.h",
             "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\inventoryfunctionlibrary.generated.h",
             "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\inventorytypes.gen.cpp",
-            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\unrealeditor\\inc\\inventory\\uht\\itemuseelement.gen.cpp",
             "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\inventory\\permoduleinline.gen.cpp",
             "d:\\epic\\ue5\\ue_5.5\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl",
             "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\private\\inventory.cpp",
-            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\public\\inventory.h",
-            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\private\\itemuseelement.cpp"
+            "d:\\epic\\project\\lightspeed_quantum\\plugins\\inventory\\source\\inventory\\public\\inventory.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

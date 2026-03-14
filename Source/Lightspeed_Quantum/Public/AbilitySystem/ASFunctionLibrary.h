@@ -20,13 +20,18 @@ class LIGHTSPEED_QUANTUM_API UASFunctionLibrary : public UBlueprintFunctionLibra
 
 public:
 
-	UASFunctionLibrary();
-
 	static void InitAbilityElementMap();
 	static void InitEffectElementMap();
 
 	static TMap<FGameplayTag, TSubclassOf<UAbilityElement>> AbilityElementClassMap;
 	static TMap<FGameplayTag, TSubclassOf<UEffectElement>> EffectElementClassMap;
+
+	UFUNCTION(BlueprintPure, Category = "Ability System|Data" , meta = (DisplayName = "获取技能映射"))
+    static TMap<FGameplayTag, TSubclassOf<UAbilityElement>> GetAbilityElementClassMap();
+
+    UFUNCTION(BlueprintPure, Category = "Ability System|Data" , meta = (DisplayName = "获取效果映射"))
+    static TMap<FGameplayTag, TSubclassOf<UEffectElement>> GetEffectElementClassMap();
+
 
 	UFUNCTION(BlueprintPure , Category = "Ability System|Functions" , meta = (DisplayName = "查询技能类"))
 	static bool SearchAbilityClassByTag(FGameplayTag Tag , TSubclassOf<UAbilityElement>& AbilityClass);

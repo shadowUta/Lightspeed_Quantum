@@ -87,16 +87,18 @@ void UInventoryComponent::UseItem(int32 SlotIndex , int32 Quantity)
     }
 }
 
-void UInventoryComponent::RemoveItem(int32 SlotIndex)
+FInventorySlot UInventoryComponent::RemoveItem(int32 SlotIndex)
 {
-    if (!Inventory.IsValidIndex(SlotIndex)) return;
+    if (!Inventory.IsValidIndex(SlotIndex)) return FInventorySlot();
     
     FInventorySlot& Slot = Inventory[SlotIndex];
-    if (Slot.IsEmpty()) return;
+    if (Slot.IsEmpty()) return Slot;
     
+    FInventorySlot SlotCopy = Slot;
     Slot.ClearSlot();
     
     UpdateInventory();
+    return SlotCopy;
 }
 
 bool UInventoryComponent::GetItemData(FName ItemID, FItemData& OutItemData) const
@@ -179,6 +181,36 @@ bool UInventoryComponent::IncreaseInventorySize(int32 IncreaseSize)
     
     UpdateInventory();
     
+    return true;
+}
+
+bool UInventoryComponent::MergeSlot(int32 IndexA, int32 IndexB)
+{
+    if (!Inventory.IsValidIndex(IndexA) || !Inventory.IsValidIndex(IndexB)) return false;
+    if (IndexA == IndexB || Inventory[IndexA].IsEmpty() || Inventory[IndexB].IsEmpty()) return false;
+
+    FInventorySlot& SlotA = Inventory[IndexA];
+    FInventorySlot& SlotB = Inventory[IndexB];
+    if (SlotA.ItemID != SlotB.ItemID) return false;
+
+    FItemData ItemData;
+
+    if (!GetItemData(SlotA.ItemID, ItemData)) return false;
+    if(SlotA.Quantity == ItemData.MaxStack || SlotB.Quantity == ItemData.MaxStack) return false;
+    
+    int32 TotalQuantity = SlotA.Quantity + SlotB.Quantity;
+    if (TotalQuantity > ItemData.MaxStack)
+    {
+        SlotA.Quantity = ItemData.MaxStack;
+        SlotB.Quantity = TotalQuantity - ItemData.MaxStack;
+    }
+    else
+    {
+        SlotA.Quantity = TotalQuantity;
+        SlotB.ClearSlot();
+    }
+
+    UpdateInventory();
     return true;
 }
 

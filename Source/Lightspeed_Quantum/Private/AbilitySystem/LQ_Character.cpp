@@ -17,7 +17,6 @@ void ALQ_Character::BeginPlay()
 {
 	Super::BeginPlay();
 	HP.Current = HP.Max;
-	MP.Current = MP.Max;
 	AP.Current = AP.Base;
 	
 }
@@ -40,9 +39,6 @@ void ALQ_Character::ModifyHP(float Value)
 {
 }
 
-void ALQ_Character::ModifyMP(float Value)
-{
-}
 
 void ALQ_Character::ModifyAP(float Value)
 {

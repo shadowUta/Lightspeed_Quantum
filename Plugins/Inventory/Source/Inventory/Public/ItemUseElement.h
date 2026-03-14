@@ -13,6 +13,7 @@ class INVENTORY_API UItemUseElement : public UObject
     GENERATED_BODY()
 
 public:
+    UItemUseElement();
 
     UFUNCTION(BlueprintImplementableEvent , Category = "Inventory" , meta = (DisplayName = "使用物品时"))
     void OnUse( AActor* User , FName ItemID , int32 Count );
@@ -27,6 +28,7 @@ public:
 private:
 
     virtual UWorld* GetWorld() const override;
+    UWorld* World;
 
 
 };

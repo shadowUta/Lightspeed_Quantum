@@ -2,6 +2,10 @@
 
 
 #include "AbilitySystem/EffectElement.h"
+UEffectElement::UEffectElement(){
+    World = GetOuter()->GetWorld();
+    OnBeginPlay();
+}
 
 void UEffectElement::ActivateEffect()
 {
@@ -10,26 +14,16 @@ void UEffectElement::ActivateEffect()
 
 UWorld* UEffectElement::GetWorld() const
 {
-    return Owner ? Owner->GetWorld() : nullptr;
+    if(Owner) return Owner->GetWorld();
+    if(World) return World;
+
+        UE_LOG(LogTemp, Warning, TEXT("%s::GetWorld() - Owner and Outer have no valid world!") , *GetName());
+        return nullptr;
 }
 
 FGameplayTag UEffectElement::GetEffectGameplayTag()
 {
     return EffectGameplayTag;
-}
-
-TStatId UEffectElement::GetStatId() const
-{
-    // 必须重写：返回性能统计ID（UE性能分析工具会用到）
-    RETURN_QUICK_DECLARE_CYCLE_STAT(UEffectElement, STATGROUP_Tickables);
-}
-
-void UEffectElement::Tick(float DeltaTime)
-{
-    if(!ShouldDestroy)
-    {
-        OnTick(DeltaTime); 
-    }
 }
 
 void UEffectElement::DestroyEffectElement()
@@ -39,7 +33,6 @@ void UEffectElement::DestroyEffectElement()
         return;
     };
     OnDestroy(); 
-    ShouldDestroy = true;
     if (IsValid(Owner))
     {
         Owner = nullptr;
@@ -55,9 +48,6 @@ bool UEffectElement::ModifyEffectStacks_Implementation(int32 AddedStacks)
     {
         EffectStacks = 0;
         return false;
-    }
-    else
-    {      
-        return true;
-    }
+    };
+    return true;
 }

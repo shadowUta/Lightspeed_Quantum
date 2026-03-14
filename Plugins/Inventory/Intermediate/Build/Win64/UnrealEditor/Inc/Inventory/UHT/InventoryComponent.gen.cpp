@@ -392,6 +392,64 @@ DEFINE_FUNCTION(UInventoryComponent::execIncreaseInventorySize)
 }
 // End Class UInventoryComponent Function IncreaseInventorySize
 
+// Begin Class UInventoryComponent Function MergeSlot
+struct Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics
+{
+	struct InventoryComponent_eventMergeSlot_Parms
+	{
+		int32 IndexA;
+		int32 IndexB;
+		bool ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Inventory" },
+		{ "DisplayName", "\xe5\x90\x88\xe5\xb9\xb6\xe8\x83\x8c\xe5\x8c\x85\xe6\xa0\xbc\xe5\xad\x90" },
+		{ "ModuleRelativePath", "Public/InventoryComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FIntPropertyParams NewProp_IndexA;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_IndexB;
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_IndexA = { "IndexA", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InventoryComponent_eventMergeSlot_Parms, IndexA), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_IndexB = { "IndexB", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InventoryComponent_eventMergeSlot_Parms, IndexB), METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((InventoryComponent_eventMergeSlot_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(InventoryComponent_eventMergeSlot_Parms), &Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_IndexA,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_IndexB,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInventoryComponent, nullptr, "MergeSlot", nullptr, nullptr, Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::PropPointers), sizeof(Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::InventoryComponent_eventMergeSlot_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::InventoryComponent_eventMergeSlot_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UInventoryComponent_MergeSlot()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInventoryComponent_MergeSlot_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UInventoryComponent::execMergeSlot)
+{
+	P_GET_PROPERTY(FIntProperty,Z_Param_IndexA);
+	P_GET_PROPERTY(FIntProperty,Z_Param_IndexB);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->MergeSlot(Z_Param_IndexA,Z_Param_IndexB);
+	P_NATIVE_END;
+}
+// End Class UInventoryComponent Function MergeSlot
+
 // Begin Class UInventoryComponent Function OnConsumableUsed_Implementation
 struct InventoryComponent_eventOnConsumableUsed_Implementation_Parms
 {
@@ -520,12 +578,43 @@ UFunction* Z_Construct_UFunction_UInventoryComponent_OnItemDropped_Implementatio
 }
 // End Class UInventoryComponent Function OnItemDropped_Implementation
 
+// Begin Class UInventoryComponent Function OpenInventory
+static const FName NAME_UInventoryComponent_OpenInventory = FName(TEXT("OpenInventory"));
+void UInventoryComponent::OpenInventory()
+{
+	UFunction* Func = FindFunctionChecked(NAME_UInventoryComponent_OpenInventory);
+	ProcessEvent(Func,NULL);
+}
+struct Z_Construct_UFunction_UInventoryComponent_OpenInventory_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Inventory" },
+		{ "DisplayName", "\xe6\x89\x93\xe5\xbc\x80\xe8\x83\x8c\xe5\x8c\x85" },
+		{ "ModuleRelativePath", "Public/InventoryComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInventoryComponent_OpenInventory_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInventoryComponent, nullptr, "OpenInventory", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_OpenInventory_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInventoryComponent_OpenInventory_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UInventoryComponent_OpenInventory()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UInventoryComponent_OpenInventory_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+// End Class UInventoryComponent Function OpenInventory
+
 // Begin Class UInventoryComponent Function RemoveItem
 struct Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics
 {
 	struct InventoryComponent_eventRemoveItem_Parms
 	{
 		int32 SlotIndex;
+		FInventorySlot ReturnValue;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -535,12 +624,15 @@ struct Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FIntPropertyParams NewProp_SlotIndex;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::NewProp_SlotIndex = { "SlotIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InventoryComponent_eventRemoveItem_Parms, SlotIndex), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(InventoryComponent_eventRemoveItem_Parms, ReturnValue), Z_Construct_UScriptStruct_FInventorySlot, METADATA_PARAMS(0, nullptr) }; // 2173197574
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::NewProp_SlotIndex,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UInventoryComponent, nullptr, "RemoveItem", nullptr, nullptr, Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::PropPointers), sizeof(Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::InventoryComponent_eventRemoveItem_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::Function_MetaDataParams), Z_Construct_UFunction_UInventoryComponent_RemoveItem_Statics::Function_MetaDataParams) };
@@ -559,7 +651,7 @@ DEFINE_FUNCTION(UInventoryComponent::execRemoveItem)
 	P_GET_PROPERTY(FIntProperty,Z_Param_SlotIndex);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->RemoveItem(Z_Param_SlotIndex);
+	*(FInventorySlot*)Z_Param__Result=P_THIS->RemoveItem(Z_Param_SlotIndex);
 	P_NATIVE_END;
 }
 // End Class UInventoryComponent Function RemoveItem
@@ -672,6 +764,7 @@ void UInventoryComponent::StaticRegisterNativesUInventoryComponent()
 		{ "DropItem", &UInventoryComponent::execDropItem },
 		{ "GetItemData", &UInventoryComponent::execGetItemData },
 		{ "IncreaseInventorySize", &UInventoryComponent::execIncreaseInventorySize },
+		{ "MergeSlot", &UInventoryComponent::execMergeSlot },
 		{ "RemoveItem", &UInventoryComponent::execRemoveItem },
 		{ "SwapItem", &UInventoryComponent::execSwapItem },
 		{ "UseItem", &UInventoryComponent::execUseItem },
@@ -744,10 +837,12 @@ struct Z_Construct_UClass_UInventoryComponent_Statics
 		{ &Z_Construct_UFunction_UInventoryComponent_DropItem, "DropItem" }, // 398210591
 		{ &Z_Construct_UFunction_UInventoryComponent_GetItemData, "GetItemData" }, // 2119415496
 		{ &Z_Construct_UFunction_UInventoryComponent_IncreaseInventorySize, "IncreaseInventorySize" }, // 2408599320
+		{ &Z_Construct_UFunction_UInventoryComponent_MergeSlot, "MergeSlot" }, // 489107539
 		{ &Z_Construct_UFunction_UInventoryComponent_OnConsumableUsed_Implementation, "OnConsumableUsed_Implementation" }, // 160619101
 		{ &Z_Construct_UFunction_UInventoryComponent_OnInventoryUpdated_Implementation, "OnInventoryUpdated_Implementation" }, // 1287902811
 		{ &Z_Construct_UFunction_UInventoryComponent_OnItemDropped_Implementation, "OnItemDropped_Implementation" }, // 2350765099
-		{ &Z_Construct_UFunction_UInventoryComponent_RemoveItem, "RemoveItem" }, // 2161030293
+		{ &Z_Construct_UFunction_UInventoryComponent_OpenInventory, "OpenInventory" }, // 1678842512
+		{ &Z_Construct_UFunction_UInventoryComponent_RemoveItem, "RemoveItem" }, // 3846461950
 		{ &Z_Construct_UFunction_UInventoryComponent_SwapItem, "SwapItem" }, // 3292622653
 		{ &Z_Construct_UFunction_UInventoryComponent_UseItem, "UseItem" }, // 1272142510
 	};
@@ -814,10 +909,10 @@ UInventoryComponent::~UInventoryComponent() {}
 struct Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UInventoryComponent, UInventoryComponent::StaticClass, TEXT("UInventoryComponent"), &Z_Registration_Info_UClass_UInventoryComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInventoryComponent), 2357141626U) },
+		{ Z_Construct_UClass_UInventoryComponent, UInventoryComponent::StaticClass, TEXT("UInventoryComponent"), &Z_Registration_Info_UClass_UInventoryComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInventoryComponent), 55111116U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_2273660661(TEXT("/Script/Inventory"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_1826973764(TEXT("/Script/Inventory"),
 	Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Project_Lightspeed_Quantum_Plugins_Inventory_Source_Inventory_Public_InventoryComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

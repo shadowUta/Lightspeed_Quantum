@@ -40,7 +40,6 @@ protected:
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory|Events" , meta = (DisplayName = "背包刷新事件"))
 	FOnInventoryUpdated OnInventoryUpdated;
-
 	//可监听的消耗品使用事件
 	UPROPERTY(BlueprintAssignable, Category = "Inventory|Events" , meta = (DisplayName = "消耗品使用事件"))
 	FOnConsumableUsed OnConsumableUsed;
@@ -52,7 +51,7 @@ protected:
 	int32 AddItem(FName ItemID, int32 Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "移除背包物品"))
-	void RemoveItem(int32 SlotIndex);
+	FInventorySlot RemoveItem(int32 SlotIndex);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "使用背包物品"))
 	void UseItem(int32 SlotIndex , int32 Quantity = 1);
@@ -66,13 +65,16 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "丢弃背包物品"))
 	int32 DropItem(int32 SlotIndex , int32 Quantity = 1);
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "合并背包格子"))
+	bool MergeSlot(int32 IndexA, int32 IndexB);
+
 	//无法减少背包容量，增加背包容量时会在末尾添加空槽
 	//输入负数或0将不会增加背包容量，返回false
 	UFUNCTION(BlueprintCallable, Category = "Inventory" , meta = (DisplayName = "增加背包容量"))
 	bool IncreaseInventorySize(int32 IncreaseSize = 1);
 
-	
-	
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category = "Inventory" , meta = (DisplayName = "打开背包"))
+	void OpenInventory();
 	
 public:	
 	
