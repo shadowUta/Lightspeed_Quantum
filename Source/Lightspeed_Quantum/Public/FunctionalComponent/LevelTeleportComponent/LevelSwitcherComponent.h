@@ -31,7 +31,7 @@ public:
 	UPROPERTY(EditAnywhere,category = "LevelSwitche")
 	float DelayBeforeSwitch = 1.0f;
 	
-	UFUNCTION(Blueprintable,Category="LevelSwitche")
+	UFUNCTION(BlueprintCallable,Category="LevelSwitche")
 	void TriggerLevelSwitch();
 	
 private:
