@@ -35,11 +35,49 @@ void ALQ_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
-void ALQ_Character::ModifyHP(float Value)
+float ALQ_Character::ModifyHP(float Value)
 {
+	float Remain = 0.0f;
+	float temp = HP.Current;
+	HP.Current += Value;
+	if (HP.Current > HP.Max){
+		HP.Current = HP.Max;
+		Remain = temp + Value - HP.Max;
+	}
+	HP.Current = HP.Max;
+	if (HP.Current < 0){
+		HP.Current = 0;
+		Remain = temp + Value;
+	}
+	OnHPChange(temp, HP.Current);
+	return Remain;
 }
 
 
-void ALQ_Character::ModifyAP(float Value)
+float ALQ_Character::ModifyAP(float Value)
 {
+	float Remain = 0.0f;
+	float temp = Value;
+	AP.Current += Value;
+	if (AP.Current < 0){
+		AP.Current = 0;
+		Remain = temp + Value;
+	}
+	OnAPChange(temp, AP.Current);
+	return Remain;
+}
+
+void ALQ_Character::SetSpeed(float Value)
+{
+	float temp = Value;
+	Speed.Current = Value;
+	OnSpeedChange(temp, Value);
+
+}
+
+void ALQ_Character::SetAttackSpeed(float Value)
+{
+	float temp = Value;
+	AttackSpeed.Current = Value;
+	OnAttackSpeedChange(temp, Value);
 }

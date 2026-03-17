@@ -19,7 +19,21 @@ struct FPropertyValueWithMax
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property"  , displayName = "当前值")
 	float Current = 0.0f;
+
+	bool operator==(const FPropertyValueWithMax& Other) const
+	{
+		return FMath::IsNearlyEqual(Max, Other.Max) && FMath::IsNearlyEqual(Current, Other.Current);
+	}
+
+	FPropertyValueWithMax operator+(const FPropertyValueWithMax& Other) const
+	{
+		if (FMath::IsNearlyEqual(Max, Other.Max)){
+			return FPropertyValueWithMax(Max, Current + Other.Current);
+		}
+		return *this;
+	}
 };
+
 
 USTRUCT(BlueprintType)
 struct FPropertyValueWithBase
@@ -34,5 +48,17 @@ struct FPropertyValueWithBase
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "当前值")
 	float Current = 0.0f;
 
+	bool operator==(const FPropertyValueWithBase& Other) const
+	{
+		return FMath::IsNearlyEqual(Base, Other.Base) && FMath::IsNearlyEqual(Current, Other.Current);
+	}
+
+	FPropertyValueWithBase operator+(const FPropertyValueWithBase& Other) const
+	{
+		if (FMath::IsNearlyEqual(Base, Other.Base)){
+			return FPropertyValueWithBase(Base, Current + Other.Current);
+		}
+		return *this;
+	}
 };
 

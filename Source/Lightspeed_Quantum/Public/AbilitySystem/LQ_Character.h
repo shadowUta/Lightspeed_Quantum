@@ -9,7 +9,7 @@
 
 
 
-UCLASS()
+UCLASS(Abstract)
 class LIGHTSPEED_QUANTUM_API ALQ_Character : public ACharacter
 {
 	GENERATED_BODY()
@@ -32,6 +32,12 @@ public:
 	UPROPERTY(BlueprintReadWrite , VisibleAnywhere , Category = "Ability System" , displayName = "护甲" )
 	float Armor;
 
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "速度" )
+	struct  FPropertyValueWithBase Speed;
+
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "攻击速度" )
+	struct  FPropertyValueWithBase AttackSpeed;
+
 	
 	
 protected:
@@ -48,10 +54,27 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改生命值" ))
-	void ModifyHP(float Value);
+	float ModifyHP(float Value);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "生命值更改时" ))
+	void OnHPChange(float OriginalValue, float NewValue);
 	
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改攻击力" ))
-	void ModifyAP(float Value);
+	float ModifyAP(float Value);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击力更改时" ))
+	void OnAPChange(float OriginalValue, float NewValue);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "设置速度" ))
+	void SetSpeed(float Value);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "速度更改时" ))
+	void OnSpeedChange(float OriginalValue, float NewValue);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "设置攻击速度" ))
+	void SetAttackSpeed(float Value);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击速度更改时" ))
+	void OnAttackSpeedChange(float OriginalValue, float NewValue);	
 
 };
