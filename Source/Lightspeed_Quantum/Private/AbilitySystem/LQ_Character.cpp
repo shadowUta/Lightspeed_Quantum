@@ -44,7 +44,6 @@ float ALQ_Character::ModifyHP(float Value)
 		HP.Current = HP.Max;
 		Remain = temp + Value - HP.Max;
 	}
-	HP.Current = HP.Max;
 	if (HP.Current < 0){
 		HP.Current = 0;
 		Remain = temp + Value;
