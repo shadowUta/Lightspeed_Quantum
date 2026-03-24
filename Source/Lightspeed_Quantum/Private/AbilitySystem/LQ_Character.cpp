@@ -32,7 +32,6 @@ void ALQ_Character::Tick(float DeltaTime)
 void ALQ_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 float ALQ_Character::ModifyHP(float Value)
@@ -79,4 +78,21 @@ void ALQ_Character::SetAttackSpeed(float Value)
 	float temp = Value;
 	AttackSpeed.Current = Value;
 	OnAttackSpeedChange(temp, Value);
+}
+
+float ALQ_Character::CalculateDamage_Implementation(float BaseDamage , FCalcCoefficient InDamageFactor , FCalcCoefficient InAttackFactor)
+{
+	return BaseDamage;
+}
+
+void ALQ_Character::ModifyDamageFactor(float AdditiveMultValue, float MultiplicativeMultValue)
+{
+	 DamageFactor.CurrentAdditiveMultiplier += AdditiveMultValue;
+	 DamageFactor.CurrentMultiplicativeMultiplier += MultiplicativeMultValue;
+}
+
+void ALQ_Character::ModifyAttackFactor(float AdditiveMultValue, float MultiplicativeMultValue)
+{
+	 AttackFactor.CurrentAdditiveMultiplier += AdditiveMultValue;
+	 AttackFactor.CurrentMultiplicativeMultiplier += MultiplicativeMultValue;
 }

@@ -77,4 +77,20 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击速度更改时" ))
 	void OnAttackSpeedChange(float OriginalValue, float NewValue);	
 
+public:
+	UPROPERTY(BlueprintReadOnly , EditDefaultsOnly , Category = "Ability System|Attack" , DisplayName = "受伤系数" )
+	struct FCalcCoefficient DamageFactor;
+
+	UPROPERTY(BlueprintReadOnly , EditDefaultsOnly , Category = "Ability System|Attack" , DisplayName = "造成伤害系数" )
+	struct FCalcCoefficient AttackFactor;
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|Attack" , meta = (DisplayName = "修改受伤系数" ))
+	void ModifyDamageFactor(float AdditiveMultValue, float MultiplicativeMultValue);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|Attack" , meta = (DisplayName = "修改造成伤害系数" ))
+	void ModifyAttackFactor(float AdditiveMultValue, float MultiplicativeMultValue);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Ability System|Attack" , meta = (DisplayName = "伤害计算" ))
+	float CalculateDamage(float BaseDamage , FCalcCoefficient InDamageFactor , FCalcCoefficient InAttackFactor);
+
 };

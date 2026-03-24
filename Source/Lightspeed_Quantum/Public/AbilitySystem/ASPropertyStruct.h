@@ -62,3 +62,26 @@ struct FPropertyValueWithBase
 	}
 };
 
+USTRUCT(BlueprintType)
+struct FCalcCoefficient
+{
+	GENERATED_BODY()
+	public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "基础加算系数")
+	float BaseAdditiveMultiplier = 0.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "基础乘算系数")
+	float BaseMultiplicativeMultiplier = 1.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "当前加算系数")
+	float CurrentAdditiveMultiplier = 0.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Character Property" , displayName = "当前乘算系数")
+	float CurrentMultiplicativeMultiplier = 1.0f;
+
+	FCalcCoefficient()
+	{
+		CurrentAdditiveMultiplier = BaseAdditiveMultiplier;
+		CurrentMultiplicativeMultiplier = CurrentMultiplicativeMultiplier;
+	};
+};
