@@ -17,7 +17,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnConsumableUsed, FName, ItemID , 
 //丢弃广播
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnItemDropped, FName, ItemID, int32 , Quantity);
 
-UCLASS(ClassGroup=(Custom), Blueprintable)
+UCLASS(ClassGroup=(Inventory), Blueprintable, meta = (BlueprintSpawnableComponent))
 class INVENTORY_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()

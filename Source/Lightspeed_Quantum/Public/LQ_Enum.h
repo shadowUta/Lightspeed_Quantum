@@ -10,5 +10,6 @@ enum class UDE_InteractableType : uint8 // 用enum class（强类型枚举）更
     IT_None               UMETA(DisplayName = "None"),      
     IT_NPC                UMETA(DisplayName = "NPC"),
     IT_Drop               UMETA(DisplayName = "掉落物"),
-    IT_Loot               UMETA(DisplayName = "宝箱")
+    IT_Loot               UMETA(DisplayName = "宝箱"),
+    IT_Cart               UMETA(DisplayName = "镖车")
 };

@@ -7,8 +7,9 @@
 #include "Components/SplineComponent.h"
 #include "CurveMovement.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurveMovementUpdated, float , Percentage);
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=(CurveMovement), meta=(BlueprintSpawnableComponent),Blueprintable)
 class CURVEMOVEMENTCOMPONENT_API UCurveMovement : public UActorComponent
 {
 	GENERATED_BODY()
@@ -31,17 +32,20 @@ public:
 	
 	UFUNCTION(BlueprintCallable,Category="Curve Movement",meta = (DisplayName = "设置百分比位置"))
 	void SetPercentage(float NewPercentage);
+
+	UPROPERTY(BlueprintAssignable, Category = "Curve Movement", meta = (DisplayName = "运动更新时"))
+	FCurveMovementUpdated OnCurveMovementUpdated;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement|Path|样曲线")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (DisplayName = "样曲线"))
 	AActor* PathActor;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement|Settings|移动速度")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (DisplayName = "曲线速度"))
 	float Speed;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement|Settings|当前百分比", meta = (ClampMin = "0.0", ClampMax = "1.0"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (ClampMin = "0.0", ClampMax = "1.0", DisplayName = "曲线位置百分比"))
 	float CurrentPercentage;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement|Settings|是否面向运动方向")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (DisplayName = "是否朝向路径"))
 	bool bOrientToPath;
 	
 private:
@@ -52,6 +56,12 @@ private:
 	USplineComponent* TargetSpline;
 	
 	void UpdateOwnerTransform();
-	
+
+public:
+	UFUNCTION(BlueprintPure,Category="Curve Movement",meta = (DisplayName = "运动中"))
+	bool IsMoving() const { return bIsMoving; };
+
+	UFUNCTION(BlueprintPure,Category="Curve Movement",meta = (DisplayName = "获取百分比位置"))
+	float GetCurrentPercentage() const { return CurrentPercentage; };
 	
 };
