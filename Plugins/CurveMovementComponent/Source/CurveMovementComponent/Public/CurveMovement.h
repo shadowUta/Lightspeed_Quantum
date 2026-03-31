@@ -9,6 +9,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurveMovementUpdated, float , Percentage);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCurveMovementFinished);
+
 UCLASS(ClassGroup=(CurveMovement), meta=(BlueprintSpawnableComponent),Blueprintable)
 class CURVEMOVEMENTCOMPONENT_API UCurveMovement : public UActorComponent
 {
@@ -33,9 +35,9 @@ public:
 	UFUNCTION(BlueprintCallable,Category="Curve Movement",meta = (DisplayName = "设置百分比位置"))
 	void SetPercentage(float NewPercentage);
 
-	UPROPERTY(BlueprintAssignable, Category = "Curve Movement", meta = (DisplayName = "运动更新时"))
-	FCurveMovementUpdated OnCurveMovementUpdated;
-	
+	UFUNCTION(BlueprintCallable,Category="Curve Movement",meta = (DisplayName = "设置循环运动"))
+	void SetLoopMovement(bool bLoop);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (DisplayName = "样曲线"))
 	AActor* PathActor;
 	
@@ -47,10 +49,19 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Curve Movement", meta = (DisplayName = "是否朝向路径"))
 	bool bOrientToPath;
-	
+
+public:
+
+	UPROPERTY(BlueprintAssignable, Category = "Curve Movement", meta = (DisplayName = "运动更新时"))
+	FCurveMovementUpdated OnCurveMovementUpdated;
+
+	UPROPERTY(BlueprintAssignable, Category = "Curve Movement", meta = (DisplayName = "运动结束时"))
+	FCurveMovementFinished OnCurveMovementFinished;
+
 private:
 	
 	bool bIsMoving;
+	bool bLoopMovement = false;
 	
 	UPROPERTY()
 	USplineComponent* TargetSpline;
@@ -63,5 +74,8 @@ public:
 
 	UFUNCTION(BlueprintPure,Category="Curve Movement",meta = (DisplayName = "获取百分比位置"))
 	float GetCurrentPercentage() const { return CurrentPercentage; };
+
+	UFUNCTION(BlueprintPure,Category="Curve Movement",meta = (DisplayName = "是否循环运动"))
+	bool IsLoopMovement() const { return bLoopMovement; };
 	
 };

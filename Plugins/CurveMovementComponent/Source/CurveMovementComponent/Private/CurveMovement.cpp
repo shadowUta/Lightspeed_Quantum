@@ -43,7 +43,7 @@ void UCurveMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 		if (CurrentPercentage >= 1.0f)
 		{
-			if(TargetSpline->IsClosedLoop())
+			if(TargetSpline->IsClosedLoop() && bLoopMovement)
 			{
 				CurrentPercentage -= 1.0f;
 			}
@@ -52,6 +52,7 @@ void UCurveMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 				CurrentPercentage = 1.0f;
 				StopMovemennt();
 			}
+			OnCurveMovementFinished.Broadcast();
 		}
 		else if (CurrentPercentage <= 0.0f)
 		{
@@ -111,4 +112,9 @@ void UCurveMovement::UpdateOwnerTransform()
 		OwnerActor->SetActorLocation(NewLocation);
 	}
 	OnCurveMovementUpdated.Broadcast(CurrentPercentage);
+}
+
+void UCurveMovement::SetLoopMovement(bool bLoop)
+{
+	bLoopMovement = bLoop;
 }
