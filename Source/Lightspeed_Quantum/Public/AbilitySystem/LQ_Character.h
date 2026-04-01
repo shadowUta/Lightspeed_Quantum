@@ -7,7 +7,10 @@
 #include "ASPropertyStruct.h"
 #include "LQ_Character.generated.h"
 
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHPChange, float, OriginalHP, float, NewHP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAPChange, float, OriginalAP, float, NewAP);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpeedChange, float, OriginalSpeed, float, NewSpeed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnAttackSpeedChange, float, OriginalAttackSpeed, float, NewAttackSpeed);
 
 UCLASS(Abstract)
 class LIGHTSPEED_QUANTUM_API ALQ_Character : public ACharacter
@@ -57,25 +60,26 @@ public:
 	float ModifyHP(float Value);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "生命值更改时" ))
-	void OnHPChange(float OriginalValue, float NewValue);
+	void OnHPChange(float OriginalHP, float NewHP);
 	
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "修改攻击力" ))
 	float ModifyAP(float Value);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击力更改时" ))
-	void OnAPChange(float OriginalValue, float NewValue);
+	void OnAPChange(float OriginalAP, float NewAP);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "设置速度" ))
 	void SetSpeed(float Value);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "速度更改时" ))
-	void OnSpeedChange(float OriginalValue, float NewValue);
+	void OnSpeedChange(float OriginalSpeed, float NewSpeed);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "设置攻击速度" ))
 	void SetAttackSpeed(float Value);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击速度更改时" ))
-	void OnAttackSpeedChange(float OriginalValue, float NewValue);	
+	void OnAttackSpeedChange(float OriginalAttackSpeed, float NewAttackSpeed);
+
 
 public:
 	UPROPERTY(BlueprintReadOnly , EditDefaultsOnly , Category = "Ability System|Attack" , DisplayName = "受伤系数" )
