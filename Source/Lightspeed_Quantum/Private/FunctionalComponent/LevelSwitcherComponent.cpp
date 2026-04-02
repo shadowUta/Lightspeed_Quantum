@@ -1,4 +1,4 @@
-#include "FunctionalComponent/LevelTeleportComponent/LevelSwitcherComponent.h"
+#include "FunctionalComponent/LevelSwitcherComponent.h"
 #include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"

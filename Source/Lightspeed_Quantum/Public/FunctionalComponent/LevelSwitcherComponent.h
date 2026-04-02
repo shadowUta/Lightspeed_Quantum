@@ -9,7 +9,7 @@
 #include "LevelSwitcherComponent.generated.h"
 
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent),Blueprintable)
 class LIGHTSPEED_QUANTUM_API ULevelSwitcherComponent : public UActorComponent
 {
 	GENERATED_BODY()
