@@ -8,7 +8,7 @@ public class Lightspeed_Quantum : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" , "GameplayTags" , "AssetRegistry","Niagara"});
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" , "GameplayTags" , "AssetRegistry","Niagara", "AIModule", "GameplayTasks"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
