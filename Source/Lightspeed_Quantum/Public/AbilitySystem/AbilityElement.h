@@ -60,6 +60,9 @@ public:
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System" , meta = (displayname = "冷却时间"))
 	float CooldownTime;
 
+	UFUNCTION(BlueprintCallable , Category = "Ability System" , meta = (DisplayName = "设置冷却时间"))
+	bool SetCooldownTime(float NewCooldownTime);
+
 	//可直接传入材质或纹理
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "技能图标"))
 	TObjectPtr<UObject> Image;

@@ -54,3 +54,13 @@ void UAbilityElement::SetAbilityLevel(int32 Level)
     };
     return;
 }
+
+bool UAbilityElement::SetCooldownTime(float NewCooldownTime)
+{
+    if(NewCooldownTime < 0.0f)
+    {
+        return false;
+    };
+    CooldownTime = NewCooldownTime;
+    return true;
+}
