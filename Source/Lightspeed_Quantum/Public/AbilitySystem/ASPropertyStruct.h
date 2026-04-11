@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+//#include "AbilitySystem/AbilityElement.h"
 #include "ASPropertyStruct.generated.h"
 
+class UAbilityElement;
 /**
  * 
  */
@@ -84,4 +86,21 @@ struct FCalcCoefficient
 		CurrentAdditiveMultiplier = BaseAdditiveMultiplier;
 		CurrentMultiplicativeMultiplier = CurrentMultiplicativeMultiplier;
 	};
+};
+
+USTRUCT(BlueprintType)
+struct FAbilityProperty
+{
+	GENERATED_BODY()
+	public:
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ABility System" , displayName = "技能类")
+	TSubclassOf<UAbilityElement> AbilityClass;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ABility System" , displayName = "技能当前等级")
+	int32 AbilityLevel = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ABility System" , displayName = "技能剩余冷却时长")
+	float CooldownTime = 0.0f;
+
 };

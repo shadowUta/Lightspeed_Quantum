@@ -141,3 +141,8 @@ TMap<FGameplayTag, TSubclassOf<UEffectElement>> UASFunctionLibrary::GetEffectEle
 {
     return EffectElementClassMap;
 }
+
+bool UASFunctionLibrary::MatchAbilityClass(struct FAbilityProperty AbilityProperty,TSubclassOf<UAbilityElement> InAbilityClass )
+{
+    return AbilityProperty.AbilityClass == InAbilityClass;
+}

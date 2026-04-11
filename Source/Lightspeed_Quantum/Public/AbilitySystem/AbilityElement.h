@@ -4,7 +4,6 @@
 #include "UObject/NoExportTypes.h"
 #include "NativeGameplayTags.h"
 #include "LQ_Character.h"
-#include "ASPropertyStruct.h"
 #include "UObject/UObjectBaseUtility.h" 
 #include "AbilityElement.generated.h"
 
@@ -31,13 +30,13 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "技能失效时"))
 	void OnDeactivate();
-
 	//类外调用，激活技能
 	UFUNCTION(BlueprintCallable , Category = "Ability System" , meta = (DisplayName = "激活技能"))
 	void ActivateAbility();
 
-	UFUNCTION(BlueprintCallable , BlueprintNativeEvent , Category = "Ability System" , meta = (DisplayName = "修改技能等级"))
-	bool UpgradeAbility(int32 AddedLevel = 1);
+
+public:	
+
 
 	//获取技能的GameplayTag
 	UFUNCTION(BlueprintPure , Category = "Ability System" , meta = (DisplayName = "获取技能GameplayTag"))
@@ -52,12 +51,15 @@ public:
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System", meta = (AllowPrivateAccess = true))
 	FGameplayTag AbilityGameplayTag;
 	
-	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System")
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System" , meta = (displayname = "最大等级"))
+	int32 MaxAbilityLevel;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System" , meta = (displayname = "技能等级"))
 	int32 AbilityLevel;
-	
-	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System" , meta = (displayname = "冷却时间"))
-	struct  FPropertyValueWithMax CooldownTime;
-	
+
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System" , meta = (displayname = "冷却时间"))
+	float CooldownTime;
+
 	//可直接传入材质或纹理
 	UPROPERTY(EditAnywhere, BlueprintReadOnly , Category = "Ability System", meta = (AllowedClasses = "Texture2D,MaterialInterface" , displayname = "技能图标"))
 	TObjectPtr<UObject> Image;
@@ -66,7 +68,11 @@ public:
 	UWorld* GetWorldContextObject(){ return World; };
 
 private:
-
+	UPROPERTY(VisibleInstanceOnly ,BlueprintReadOnly, Category = "Ability System" , meta = (AllowPrivateAccess = true, ExposeOnSpawn = true , DisplayName = "初始等级"))
+	int32 InitialAbilityLevel = 0;
+	
+	void SetAbilityLevel(int32 Level);
+	
 	virtual UWorld* GetWorld() const override;
 	UWorld* World;
 

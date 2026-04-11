@@ -13,6 +13,8 @@
 
 #include "ASFunctionLibrary.generated.h"
 
+struct FAbilityProperty;
+
 UCLASS()
 class LIGHTSPEED_QUANTUM_API UASFunctionLibrary : public UBlueprintFunctionLibrary
 {
@@ -49,6 +51,9 @@ public:
 
 	UFUNCTION(BlueprintCallable , Category = "Ability System|Functions" , meta = (DisplayName = "更新映射"))
 	static void UpdateMaps();
+
+	UFUNCTION(BlueprintPure , Category = "Ability System|Functions" , meta = (DisplayName = "匹配技能类" ))
+	static bool MatchAbilityClass(struct FAbilityProperty AbilityProperty,TSubclassOf<UAbilityElement> InAbilityClass);
 
 	static void PrintOut(FString Outprint , FColor Color);
 };
