@@ -41,13 +41,14 @@ public:
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , displayName = "攻击速度" )
 	struct  FPropertyValueWithBase AttackSpeed;
 
+	UPROPERTY(BlueprintReadOnly , VisibleAnywhere , Category = "Ability System" , DisplayName = "角色基础状态" )
+	struct FCharacterState BaseState;
 	
 	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-
 
 public:	
 	// Called every frame
@@ -80,6 +81,24 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击速度更改时" ))
 	void OnAttackSpeedChange(float OriginalAttackSpeed, float NewAttackSpeed);
 
+public:
+	//角色状态相关函数
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|State" , meta = (DisplayName = "设置无敌状态" ))
+	void SetInvincible(bool Invincible){ BaseState.Invincible = Invincible; };
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|State" , meta = (DisplayName = "设置攻击状态" ))
+	void SetCanAttack(bool CanAttack){ BaseState.CanAttack = CanAttack; };
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|State" , meta = (DisplayName = "设置移动状态" ))
+	void SetCanMove(bool CanMove){ BaseState.CanMove = CanMove; };
+
+	UFUNCTION(BlueprintCallable, Category = "Ability System|State" , meta = (DisplayName = "设置技能状态" ))
+	void SetCanUseAbility(bool CanUseAbility){ BaseState.CanUseAbility = CanUseAbility; };
+
+	UFUNCTION(BlueprintPure, Category = "Ability System|State" , meta = (DisplayName = "查询角色状态" ))
+	FCharacterState GetCharacterState(){ return BaseState; };
+
 
 public:
 	UPROPERTY(BlueprintReadOnly , EditDefaultsOnly , Category = "Ability System|Attack" , DisplayName = "受伤系数" )
@@ -98,3 +117,4 @@ public:
 	float CalculateDamage(float BaseDamage , FCalcCoefficient InDamageFactor , FCalcCoefficient InAttackFactor);
 
 };
+

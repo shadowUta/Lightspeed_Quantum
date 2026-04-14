@@ -104,3 +104,22 @@ struct FAbilityProperty
 	float CooldownTime = 0.0f;
 
 };
+
+USTRUCT(BlueprintType)
+struct FCharacterState 
+{
+	GENERATED_BODY()
+	public:
+	UPROPERTY(BlueprintReadWrite , EditAnywhere , Category = "Ability System|State" , DisplayName = "无敌" )
+	bool Invincible;
+
+	UPROPERTY(BlueprintReadWrite , EditAnywhere , Category = "Ability System|State" , DisplayName = "能否攻击" )
+	bool CanAttack = true;
+
+	UPROPERTY(BlueprintReadWrite , EditAnywhere , Category = "Ability System|State" , DisplayName = "能否移动" )
+	bool CanMove = true;
+
+	UPROPERTY(BlueprintReadWrite , EditAnywhere , Category = "Ability System|State" , DisplayName = "能否使用技能" )
+	bool CanUseAbility = true;
+
+};
