@@ -56,7 +56,6 @@ public:
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "Ability System" , meta = (displayname = "技能等级"))
 	int32 AbilityLevel;
-
 	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly, Category = "Ability System" , meta = (displayname = "冷却时间"))
 	float CooldownTime;
 
