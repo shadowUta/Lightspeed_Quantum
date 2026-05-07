@@ -13,3 +13,4 @@ enum class UDE_InteractableType : uint8 // 用enum class（强类型枚举）更
     IT_Loot               UMETA(DisplayName = "宝箱"),
     IT_Cart               UMETA(DisplayName = "镖车")
 };
+

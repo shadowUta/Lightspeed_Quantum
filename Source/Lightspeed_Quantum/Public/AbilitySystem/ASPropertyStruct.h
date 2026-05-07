@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 //#include "AbilitySystem/AbilityElement.h"
+#include "ASEnum.h"
 #include "ASPropertyStruct.generated.h"
 
 class UAbilityElement;

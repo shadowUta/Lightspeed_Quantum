@@ -43,7 +43,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly , VisibleAnywhere , Category = "Ability System" , DisplayName = "角色基础状态" )
 	struct FCharacterState BaseState;
-	
+
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , Category = "Ability System" , DisplayName = "角色阵营" )
+	UDE_Faction Faction;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -81,6 +83,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Ability System" , meta = (DisplayName = "攻击速度更改时" ))
 	void OnAttackSpeedChange(float OriginalAttackSpeed, float NewAttackSpeed);
 
+
+
 public:
 	//角色状态相关函数
 
@@ -99,6 +103,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Ability System|State" , meta = (DisplayName = "查询角色状态" ))
 	FCharacterState GetCharacterState(){ return BaseState; };
 
+	UFUNCTION(BlueprintCallable, Category = "Ability System" , meta = (DisplayName = "切换阵营" ))
+	void SwitchFaction(UDE_Faction NewFaction){ Faction = NewFaction;};
 
 public:
 	UPROPERTY(BlueprintReadOnly , EditDefaultsOnly , Category = "Ability System|Attack" , DisplayName = "受伤系数" )
